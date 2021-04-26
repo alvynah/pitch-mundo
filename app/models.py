@@ -18,6 +18,7 @@ class User(UserMixin,db.Model):
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     pitches = db.relationship('Pitch', backref='user', lazy='dynamic')
+    comment = db.relationship('Comment', backref='user', lazy='dynamic')
     upvote = db.relationship('Upvote', backref='user', lazy='dynamic')
     downvote = db.relationship('Downvote', backref='user', lazy='dynamic')
 
@@ -44,6 +45,7 @@ class Pitch(db.Model):
     title = db.Column(db.String(255), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     pitch = db.Column(db.String, nullable=False)
+    comment = db.relationship('Comment', backref='pitch', lazy='dynamic')
     upvote = db.relationship('Upvote', backref='pitch', lazy='dynamic')
     downvote = db.relationship('Downvote', backref='pitch', lazy='dynamic')
     time = db.Column(db.DateTime, default=datetime.utcnow)
@@ -107,3 +109,25 @@ class Downvote(db.Model):
 
     def __repr__(self):
         return f'{self.user_id}:{self.pitch_id}'
+class Comment(db.Model):
+    
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer, primary_key=True)
+    comment = db.Column(db.Text(), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'),nullable=False)
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'),nullable=False)
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+        @classmethod
+        def get_comments(cls,pitch_id):
+            comments = Comment.query.filter_by(pitch_id=pitch_id).all()
+
+            return comments
+
+        
+        def __repr__(self):
+            return f'comment:{self.comment}'
