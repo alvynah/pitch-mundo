@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for, abort
 from flask_login import login_required, current_user
 from . import main
-from ..models import User,Pitch
+from ..models import User,Pitch,Upvote
 from .forms import UpdateProfile, PitchForm
 from .. import db,photos
 
@@ -81,3 +81,15 @@ def new_pitch():
         return redirect(url_for('main.index'))
 
     return render_template('new_pitch.html', form=form)
+
+
+@main.route('/like/<int:id>', methods=['POST', 'GET'])
+@login_required
+def like(id):
+    pitch = Pitch.query.get(id)
+    new_vote = Upvote(pitch=pitch, upvote=1)
+    new_vote.save()
+    return redirect(url_for('main.index',id=id))
+
+
+

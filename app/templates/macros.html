@@ -1,7 +1,8 @@
 {% macro display(posts) %}
 <div class="container-fluid">
+    {% if posts %}
     <div class="row">
-        {% if posts %} {% for category in posts %}
+        {% for category in posts %}
 
         <div class="col-md-4">
             <div class="thumbnail" id="carded">
@@ -10,19 +11,31 @@
                     <p>{{category.pitch}}</p>
                     <p class="text-center"> Category: {{category.category}}</p>
                     <footer class="blockquote-footer text-center"> Posted by: {{category.user.username}}</footer>
+                    <div>
+                        <a href="{{url_for('main.like',id = category.id)}}">
+                            <i class="fa fa-thumbs-up" style="font-size:18px;color: green"></i>
+                        </a>
+                        {{category.upvote.count()}}
+
+
+                    </div>
+
+
                 </div>
-
-
             </div>
-        </div>
-        {% endfor %} {% else %}
-        <div class="card w-90 mb-3">
-            <div class="card-body">
 
-                <p class="card-title">This category has 0 pitches.Sign in to add a pitch</p>
-            </div>
         </div>
-        {% endif %}
+        {% endfor %}
     </div>
+    {% else %}
+    <div class="card w-90 mb-3">
+        <div class="card-body">
+
+            <p class="card-title">This category has 0 pitches.Sign in to add a pitch</p>
+        </div>
+    </div>
+    {% endif %}
+
+
 </div>
 {% endmacro %}
