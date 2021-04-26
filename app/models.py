@@ -19,6 +19,8 @@ class User(UserMixin,db.Model):
     profile_pic_path = db.Column(db.String())
     pitches = db.relationship('Pitch', backref='user', lazy='dynamic')
     upvote = db.relationship('Upvote', backref='user', lazy='dynamic')
+    downvote = db.relationship('Downvote', backref='user', lazy='dynamic')
+
 
     @property
     def password(self):
@@ -43,6 +45,7 @@ class Pitch(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     pitch = db.Column(db.String, nullable=False)
     upvote = db.relationship('Upvote', backref='pitch', lazy='dynamic')
+    downvote = db.relationship('Downvote', backref='pitch', lazy='dynamic')
     time = db.Column(db.DateTime, default=datetime.utcnow)
     category = db.Column(db.String(255), index=True, nullable=False)
 
@@ -67,7 +70,7 @@ class Upvote(db.Model):
         db.session.commit()
 
     def upvote(cls, id):
-        upvote_post = Upvote(user=current_user, post_id=id)
+        upvote_post = Upvote(user=current_user, pitch_id=id)
         upvote_post.save()
 
     @classmethod
@@ -75,10 +78,32 @@ class Upvote(db.Model):
         upvote = Upvote.query.filter_by(pitch_id=id).all()
         return upvote
 
+   
+
+    def __repr__(self):
+        return f'{self.user_id}:{self.pitch_id}'
+
+
+class Downvote(db.Model):
+    __tablename__ = 'downvotes'
+    id = db.Column(db.Integer, primary_key=True)
+    downvote = db.Column(db.Integer, default=1)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def downvote(cls, id):
+        downvote_post = Downvote(user=current_user, pitch_id=id)
+        downvote_post.save()
+
     @classmethod
-    def all_upvotes(cls):
-        upvotes = Upvote.query.order_by('id').all()
-        return upvotes
+    def query_downvotes(cls, id):
+        downvote = Downvote.query.filter_by(pitch_id=id).all()
+        return downvote
+
 
     def __repr__(self):
         return f'{self.user_id}:{self.pitch_id}'

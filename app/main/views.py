@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for, abort
 from flask_login import login_required, current_user
 from . import main
-from ..models import User,Pitch,Upvote
+from ..models import User,Pitch,Upvote,Downvote
 from .forms import UpdateProfile, PitchForm
 from .. import db,photos
 
@@ -87,9 +87,17 @@ def new_pitch():
 @login_required
 def like(id):
     pitch = Pitch.query.get(id)
-    new_vote = Upvote(pitch=pitch, upvote=1)
-    new_vote.save()
+    new_vote_like = Upvote(pitch=pitch, upvote=1)
+    new_vote_like.save()
     return redirect(url_for('main.index',id=id))
 
+
+@main.route('/dislike/<int:id>', methods=['GET', 'POST'])
+@login_required
+def dislike(id):
+    pitch = Pitch.query.get(id)
+    new_vote_dislike = Downvote(pitch=pitch, downvote=1)
+    new_vote_dislike.save()
+    return redirect(url_for('main.index',id=id))
 
 
