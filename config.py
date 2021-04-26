@@ -2,7 +2,8 @@ class Config:
     '''
     General configuration parent class
     '''
-    pass
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://username:password@localhost/pitchmundo'
+
 
 
 class ProdConfig(Config):
@@ -12,6 +13,7 @@ class ProdConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
+
     pass
 
 
