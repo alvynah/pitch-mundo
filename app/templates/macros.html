@@ -24,6 +24,13 @@
                             {{category.downvote.count()}}
                         
                         </span>
+                        <span class="foot">
+                             <a href="{{url_for('main.comment',pitch_id = category.id)}}">
+                                <i class="fas fa-comment" style="color:blueviolet;"></i>
+                                {{category.comment.count()}}
+                             </a> 
+
+                             </span>
 
 
                     </div>
