@@ -1,11 +1,11 @@
 from flask import render_template
 from flask_login import login_required, current_user
-from app import app
+from . import main
 
 # Views
 
 
-@app.route('/')
+@main.route('/')
 def index():
     '''
     View root page function that returns the index page and its data
