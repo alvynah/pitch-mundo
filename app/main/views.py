@@ -1,6 +1,10 @@
-from flask import render_template
+from flask import render_template, request, redirect, url_for, abort
 from flask_login import login_required, current_user
 from . import main
+from ..models import User
+from .forms import  UpdateProfile
+from .. import db
+
 
 # Views
 
@@ -13,19 +17,31 @@ def index():
     return render_template('index.html')
 
 
-@main.route('/create_new', methods=['POST', 'GET'])
-@login_required
-def new_pitch():
-    form = PitchForm()
-    if form.validate_on_submit():
-        title = form.title.data
-        post = form.post.data
-        category = form.category.data
-        user_id = current_user
-        new_pitch_object = Pitch(post=post, user_id=current_user._get_current_object(
-        ).id, category=category, title=title)
-        new_pitch_object.save_p()
-        
-        return redirect(url_for('main.index'))
+@main.route('/user/<uname>')
+def profile(uname):
+    user = User.query.filter_by(username=uname).first()
 
-    return render_template('new_pitch.html', form=form)
+    if user is None:
+        abort(404)
+
+    return render_template("profile/profile.html", user=user)
+
+
+@main.route('/user/<uname>/update', methods=['GET', 'POST'])
+@login_required
+def update_profile(uname):
+    user = User.query.filter_by(username=uname).first()
+    if user is None:
+        abort(404)
+
+    form = UpdateProfile()
+
+    if form.validate_on_submit():
+        user.bio = form.bio.data
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('.profile', uname=user.username))
+
+    return render_template('profile/update.html', form=form)
