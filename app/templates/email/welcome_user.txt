@@ -1,0 +1,6 @@
+Hello {{user.username}}
+Welcome to Pitch Mundo(Pitch World)
+
+We have just seen you have signed up for our application and want to welcome you to the family. 
+Pitch mundo is the elite store for pitches that can define your career in just a minute.
+Please enjoy the pitches and remember to contribute by voting, commenting and adding your own killer pitches.
