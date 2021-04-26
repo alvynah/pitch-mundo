@@ -14,9 +14,12 @@ def index():
     '''
     View root page function that returns the index page and its data
     '''
-    pitches = Pitch.query.all()
+    pitchesview = Pitch.query.all()
+    bus = Pitch.query.filter_by(category='Business').all()
+    tech = Pitch.query.filter_by(category='Tech').all()
+    event = Pitch.query.filter_by(category='Event').all()
 
-    return render_template('index.html', pitches=pitches)
+    return render_template('index.html', pitchesview=pitchesview, bus=bus, tech=tech, event=event)
 
 
 @main.route('/user/<uname>')
