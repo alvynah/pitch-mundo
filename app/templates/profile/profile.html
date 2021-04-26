@@ -38,6 +38,11 @@
         <div class="pitches">
             <h5>Title: {{i.title}}</h5>
             <h6>{{i.pitch}}</h6>
+            <h6> Likes:{{i.upvote.count()}}
+            </h6>
+            <h6> Dislikes:{{i.downvote.count()}}
+            </h6>
+
         </div>
 
         {%endfor%} {%else%}
