@@ -1,0 +1,38 @@
+.navbar-brand {
+    font-size: 30px;
+}
+
+.nav-item {
+    font-size: 20px;
+    color: blanchedalmond;
+}
+
+.nav-item:hover {
+    color: chocolate;
+}
+
+.navbar {
+    margin-top: 0.5%;
+    box-shadow: 0 0 10px 0 grey;
+    background-color: black;
+    font-family: 'display';
+}
+
+#items {
+    margin-left: 60%;
+}
+
+.navbar-brand {
+    margin-left: 1%;
+    margin-right: 5%;
+}
+
+.nav-link {
+    font-weight: 500;
+}
+
+@media screen and (min-width:600px) {
+    #items {
+        float: left;
+    }
+}
