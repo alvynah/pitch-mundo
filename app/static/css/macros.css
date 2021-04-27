@@ -46,7 +46,8 @@
 }
 
 .cardsComment,
-.cardsNoComment {
+.cardsNoComment,
+.cardsProfile {
     color: black;
     background-color: rgb(130, 209, 12, 0.4);
     border-radius: 6px;
@@ -57,4 +58,26 @@
 
 .cardsNoComment {
     margin-top: 3%;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 50%;
+}
+
+.cardsProfile {
+    text-align: center;
+    width: 60%;
+}
+
+.pitches {
+    background-color: rgb(255, 255, 255, 0.8);
+    border-radius: 6px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.pitch {
+    font-style: italic;
+    font-size: 20px;
 }

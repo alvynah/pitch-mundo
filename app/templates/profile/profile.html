@@ -1,55 +1,79 @@
 {% extends 'base.html'%} {% block content %}
 <div class="container">
-    <div class="row">
+    <h2 class="text-center"> User Profile</h2>
+    <hr>
+    <div class="row profileContent">
         <!-- displaying  Username-->
-        <div class="col-md-4">
-            <h3> {{user.username| capitalize}} </h3>
+        <div class="col-md-7">
 
-            <!--Displaying user bio-->
-            {% if user.bio %}
-            <p> {{user.bio}}</p>
-            {%else%}
-            <p> {{user.username| capitalize}} has no bio </p>
-            {% endif %} {% if user == current_user %}
-            <a href="{{url_for('main.update_profile',uname=user.username)}}">Edit profile</a> {% endif %}
+            <!-- Display user info -->
+            <div class="card cardsProfile">
+                <div class="card-img">
+                    {% if user.profile_pic_path %}
+                    <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail"> {%else%}
+                    <p>No profile picture</p>
+                    {% endif %}
+                    <button class="btn" id="profileButton">update pic</button>
+                </div>
+
+                <div class="updateImg">
+                    {% if user == current_user %}
+                    <form class="updatePic" action="{{url_for('main.update_pic',uname=user.username)}}" method="post" enctype="multipart/form-data">
+
+                        <input type="file" name="photo" class="form-control" required>
+                        <div class="form-group" id="btnSmall">
+                            <button type="submit" id="submit">Submit</button>
+
+                        </div>
+                    </form>
+                    {% endif %}
+                </div>
+                <hr>
+                <div class="card-body" id="profileStatus">
+                    <p class="card-title">{{user.username}}</p>
+                    {% if user.bio %}
+                    <h2><i class="fas fa-quote-left"></i></h2>
+                    <p class="card-title"> {{user.bio}}</p>
+                    {%else%}
+                    <p class="card-title"> {{user.username}} has no bio. <br> Kindly edit your profile to update biography using the link below </p>
+                    {% endif %}
+                    <div>
+                        <span class="card-title linkUpdate"> {% if user == current_user %}
+                                    <a href="{{url_for('main.update_profile',uname=user.username)}}">* Edit profile>></a> {% endif %}
+                                </span>
+                    </div>
+
+
+                </div>
+            </div>
+
+
         </div>
 
-        <!--Display profile photo-->
-        <div class="col-md-4">
 
-            {% if user.profile_pic_path %}
-            <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail"> {%else%}
-            <p>No profile picture</p>
-            {% endif %} {% if user == current_user %}
-            <form action="{{url_for('main.update_pic',uname=user.username)}}" method="post" enctype="multipart/form-data">
 
-                <input type="file" name="photo" class="form-control" required>
-                <input type="submit">
-            </form>
-            {% endif %}
+        <div class="col-md-5" id="profilePitch">
+            {% if current_user %}
+            <h2 class="text-center"> You have posted {{user.pitches.count()}} pitches </h2>
+            {% for post in pitches%}
+            <div class="pitches">
+                <p>Title: {{post.title}}</p>
+                <p class="pitch"> " {{post.pitch}} "</p>
+
+                <p> Likes:{{post.upvote.count()}}<br> Dislikes:{{post.downvote.count()}}
+                    <br> Comments:{{post.comment.count()}}
+                </p>
+
+
+
+
+            </div>
+
+            {%endfor%} {%else%}
+            <h3>You have no posts</h3>
+            {%endif%}
+
         </div>
-
     </div>
-    <div class="col-md-1"></div>
-    <div class="col-md-5" id="user">
-        {% if current_user %}
-        <h3> You have posted {{user.pitches.count()}} pitches </h3>
-        {% for i in pitches%}
-        <div class="pitches">
-            <h5>Title: {{i.title}}</h5>
-            <h6>{{i.pitch}}</h6>
-            <h6> Likes:{{i.upvote.count()}}
-            </h6>
-            <h6> Dislikes:{{i.downvote.count()}}
-            </h6>
-
-        </div>
-
-        {%endfor%} {%else%}
-        <h3>You have no posts</h3>
-        {%endif%}
-
-    </div>
-</div>
 </div>
 {% endblock %}
