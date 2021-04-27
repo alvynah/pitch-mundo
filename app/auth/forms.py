@@ -6,17 +6,17 @@ from wtforms import ValidationError
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Your Email Address', validators=[Required(), Email()])
-    password = PasswordField('Password', validators=[Required()])
+    email = StringField('Email Address :', validators=[Required(), Email()])
+    password = PasswordField('Password :', validators=[Required()])
     remember = BooleanField('Remember Me!')
     submit = SubmitField('Login')
 
 
 class RegistrationForm(FlaskForm):
-    email = StringField('Your Email Address', validators=[Required(), Email()])
-    username = StringField('Enter Your Username', validators=[Required()])
-    password = PasswordField('Password', validators=[Required(), EqualTo('password_confirm', message='Passwords must match')])
-    password_confirm = PasswordField('Confirm Passwords', validators=[Required()])
+    email = StringField('Enter Email Address :', validators=[Required(), Email()])
+    username = StringField('Enter Username :', validators=[Required()])
+    password = PasswordField('Password :', validators=[Required(), EqualTo('password_confirm', message='Passwords must match')])
+    password_confirm = PasswordField('Confirm Password :', validators=[Required()])
     submit = SubmitField('Sign Up')
 
     def validate_email(self, data_field):

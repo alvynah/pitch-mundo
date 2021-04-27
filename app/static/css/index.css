@@ -38,3 +38,70 @@ hr {
 .nav-item:hover {
     color: chocolate;
 }
+
+form {
+    margin-top: 5%;
+    width: 100%;
+    padding: 20px;
+    border-radius: 6px;
+    background-color: transparent;
+    box-shadow: 0 0 20px 0 rgb(115, 185, 10);
+    float: center;
+    margin-bottom: 10%;
+    align-items: center;
+    font-size: 16px;
+}
+
+.form-check-label {
+    color: white;
+}
+
+textarea.form-control,
+select.form-control,
+input.form-control {
+    background-color: white;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+select.form-control {
+    height: 3rem !important;
+}
+
+.form-control:hover,
+.form-check-label:hover,
+input:hover::placeholder {
+    color: rgb(130, 209, 12);
+}
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover {
+    border: 1px solid transparent;
+    box-shadow: 0 0 6px 0 rgb(130, 209, 12);
+    color: rgb(103, 165, 9);
+}
+
+input#submit.btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background: rgb(103, 165, 9);
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+}
+
+input#submit.btn:hover {
+    background-color: rgba(108, 158, 32, 0.8) !important;
+}
+
+h2 {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 20px;
+}
