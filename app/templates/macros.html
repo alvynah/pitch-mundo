@@ -1,52 +1,66 @@
-{% macro display(posts) %}
-<div class="container-fluid">
+ {% macro display(posts) %}
+<div class="container">
     {% if posts %}
     <div class="row">
-        {% for category in posts %}
 
-        <div class="col-md-4">
-            <div class="thumbnail" id="carded">
-                <h5 class="card-header">{{category.title}}</h5>
-                <div class="card-body">
-                    <p>{{category.pitch}}</p>
-                    <p class="text-center"> Category: {{category.category}}</p>
-                    <footer class="blockquote-footer text-center"> Posted by: {{category.user.username}}</footer>
-                    <div>
-                        <span class="foot">
-                            <a href="{{url_for('main.like',id = category.id)}}">
-                                <i class="fa fa-thumbs-up" style="font-size:18px;color: green"></i>
-                            </a>
-                            {{category.upvote.count()}}
-                        </span>
-                        <span class="foot">
-                            <a href="{{url_for('main.dislike',id = category.id)}}">
-                                <i class="fa fa-thumbs-down" style="color:red;"></i> </a>
-                            {{category.downvote.count()}}
-                        
-                        </span>
-                        <span class="foot">
-                             <a href="{{url_for('main.comment',pitch_id = category.id)}}">
-                                <i class="fas fa-comment" style="color:blueviolet;"></i>
-                                {{category.comment.count()}}
-                             </a> 
+        <div class="col-md-12">
+            <div class="myCards">
+                {% for category in posts %}
+                <div class="cards" style="width:35rem; ">
+                    <div class="card-header">
+                        <h1 class="title">{{category.title}} <span class="subtitle"> * Category: {{category.category}} *
+                        </span></h1>
+                    </div>
 
-                             </span>
+                    <div class="card-body ">
+                        <p class="text-center pitch">" {{category.pitch}} "<br>
+                            <span class="blockquote text-center "> ~ {{category.user.username}}</span>
+
+                        </p>
+
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-xs-7">
+                                <a href="{{url_for( 'main.like',id=category.id)}} ">
+                                    <i class="fa fa-thumbs-up " style="font-size:18px;color: green "></i>
+                                </a>
+                                {{category.upvote.count()}} likes
+                                <a href="{{url_for( 'main.dislike',id=category.id)}} ">
+                                    <i class="fa fa-thumbs-down " style="color:red; "></i> </a>
+                                {{category.downvote.count()}} dislikes
+
+                            </div>
+                            <div class="col-xs-5" id="commentIcon">
+                                <a href="{{url_for( 'main.comment',pitch_id=category.id)}} ">
+                                    <i class="fas fa-comment text-primary"></i>
+                                </a>
+                                {{category.comment.count()}} comments
+                            </div>
+                        </div>
+
+
+
 
 
                     </div>
 
 
                 </div>
+                <br style="clear: both"> {% endfor %}
+
             </div>
 
         </div>
-        {% endfor %}
+
+
     </div>
     {% else %}
-    <div class="card w-90 mb-3">
-        <div class="card-body">
+    <div class="card w-90 mb-3  cardnoContent">
+        <div class="card-body ">
 
-            <p class="card-title">This category has 0 pitches.Sign in to add a pitch</p>
+            <p class="card-title ">This category has 0 pitches.Sign in to add a pitch</p>
         </div>
     </div>
     {% endif %}

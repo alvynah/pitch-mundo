@@ -1,21 +1,16 @@
+nav {
+    margin-top: 0.5%;
+    background-color: rgba(108, 158, 32, 0.8);
+    font-family: 'display';
+    color: black;
+}
+
 .navbar-brand {
     font-size: 30px;
 }
 
 .nav-item {
     font-size: 20px;
-    color: blanchedalmond;
-}
-
-.nav-item:hover {
-    color: chocolate;
-}
-
-.navbar {
-    margin-top: 0.5%;
-    box-shadow: 0 0 10px 0 grey;
-    background-color: black;
-    font-family: 'display';
 }
 
 #items {
@@ -29,6 +24,23 @@
 
 .nav-link {
     font-weight: 500;
+}
+
+a.dropdown-item {
+    font-size: 15px !important;
+}
+
+a.dropdown-item:hover {
+    background-color: black !important;
+    color: white;
+}
+
+a.nav-link:hover {
+    background-color: rgba(108, 158, 32, 0.8) !important;
+}
+
+a.nav-link {
+    padding-left: 10%;
 }
 
 @media screen and (min-width:600px) {
