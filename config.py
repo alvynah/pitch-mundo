@@ -26,6 +26,7 @@ class ProdConfig(Config):
     '''
 
     SQLALCHEMY_DATABASE_URI = "postgresql://rbocsdssvyutqf:99831c8ebddd7c0f123f8bab7a9bae10d3b8c62b25c3990db38ae056ef0ac0a7@ec2-54-152-185-191.compute-1.amazonaws.com:5432/d223617h6tq3h?sslmode=require"
+   
 
 
 class TestConfig(Config):
