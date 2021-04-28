@@ -1,9 +1,14 @@
 import unittest
 from app.models import User
+from app import db
 
 class UserModelTest(unittest.TestCase):
     def setUp(self):
-        self.new_user=User(password='banana')
+        """
+        Set up method that will run before every Test
+        """
+        self.new_user=User(username='cece', password='banana')
+
     def test_password_setter(self):
         self.assertTrue(self.new_user.pass_secure is not None)
 
