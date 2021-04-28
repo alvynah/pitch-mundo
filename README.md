@@ -21,7 +21,7 @@ A platform where users can enter a one minute pitch that can be life changing.Ot
 ![image](./app/static/images/profile.png)
 
 ## Live Link
-
+[pitchmundo](https://pitch-mundo.herokuapp.com/)
 
 ## User Story
 
