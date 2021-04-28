@@ -43,7 +43,7 @@ class Pitch(db.Model):
     __tablename__ = 'pitches'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id',ondelete='SET NULL'), nullable = True)
     pitch = db.Column(db.String, nullable=False)
     comment = db.relationship('Comment', backref='pitch', lazy='dynamic')
     upvote = db.relationship('Upvote', backref='pitch', lazy='dynamic')
@@ -55,6 +55,11 @@ class Pitch(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    # @classmethod
+    # def get_pitches(cls,title):
+    #     pitches = Pitch.query.filter_by(title=title).all()
+    #     return pitches
+
     def __repr__(self):
         return f'Pitch {self.pitch}'
 
@@ -64,8 +69,8 @@ class Upvote(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     upvote = db.Column(db.Integer, default=1)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id',ondelete='SET NULL'), nullable=True)
+    pitch_id=db.Column(db.Integer, db.ForeignKey('pitches.id', ondelete='SET NULL'), nullable = True)
 
     def save(self):
         db.session.add(self)
@@ -90,8 +95,8 @@ class Downvote(db.Model):
     __tablename__ = 'downvotes'
     id = db.Column(db.Integer, primary_key=True)
     downvote = db.Column(db.Integer, default=1)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id',ondelete='SET NULL'), nullable=True)
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id', ondelete='SET NULL'), nullable=True)
 
     def save(self):
         db.session.add(self)
@@ -115,8 +120,8 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.Text(), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'),nullable=False)
-    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'),nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='SET NULL'), nullable=True)
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id',ondelete='SET NULL'), nullable=True)
 
     def save(self):
         db.session.add(self)
